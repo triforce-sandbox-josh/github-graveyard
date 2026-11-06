@@ -1,6 +1,6 @@
 # 🪦 GitHub Graveyard
 
-Enter a GitHub username, get a tombstone for every abandoned side project, each with a cause of death.
+Enter a GitHub username, get a tombstone for every abandoned side project, each with its own cause of death.
 
 > RIP todo-app-v3 · 2022 – 2023 · *Cause of death: Replaced by its own sequel*
 
