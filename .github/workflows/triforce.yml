@@ -29,14 +29,14 @@ jobs:
     # The secrets live in this environment, restricted to the default branch, so no other
     # branch's workflow can read the App key or the Anthropic key. Create it before enabling.
     environment: triforce
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       - name: Mint Triforce App token
         id: app-token
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
-          app-id: ${{ secrets.TRIFORCE_APP_ID }}
+          client-id: ${{ vars.TRIFORCE_APP_CLIENT_ID }}
           private-key: ${{ secrets.TRIFORCE_APP_PRIVATE_KEY }}
 
       # Sandbox only: this fork is public and GitHub won't let a public repo use an action
@@ -44,16 +44,16 @@ jobs:
       # App token. This never checks out PR code. Private consumers use `uses: owner/triforce-review@v0`.
       - name: Mint read-only token for the action repo
         id: action-token
-        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
-          app-id: ${{ secrets.TRIFORCE_APP_ID }}
+          client-id: ${{ vars.TRIFORCE_APP_CLIENT_ID }}
           private-key: ${{ secrets.TRIFORCE_APP_PRIVATE_KEY }}
           owner: triforce-sandbox-josh
           repositories: triforce-review
           permission-contents: read
 
       - name: Check out the Triforce action
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: triforce-sandbox-josh/triforce-review
           ref: v0
