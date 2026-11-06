@@ -90,8 +90,6 @@ domains:
       - "eslint.config.*"
       - "next.config.*"
       - "tsconfig.json"
-      - "**/*.test.*"
-      - "**/*.spec.*"
       - "vitest.config.*"
       - "playwright.config.*"
     owners: ["@triforce-sandbox-josh/platform"]

@@ -1,0 +1,18 @@
+# Relays review events to the triforce workflow via workflow_run (ADR-0001).
+# pull_request_review runs this file from the PR's head, so it gets no permissions and no
+# secrets, and does nothing: its completion is the only signal. Keep the name: triforce.yml
+# listens for "triforce-relay".
+name: triforce-relay
+
+on:
+  pull_request_review:
+    types: [submitted, dismissed]
+
+permissions: {}
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - run: echo relay
