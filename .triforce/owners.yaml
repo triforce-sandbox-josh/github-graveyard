@@ -20,7 +20,7 @@ roles:
 
 people:
   joshuayoes: { roles: [IE, SE], about: "Sandbox owner; security, CI and dependencies." }
-  trevor-coleman: { roles: [PXA], about: "Product Experience Architect; sandbox reviewer on the security team." }
+  trevor-coleman: { roles: [IE], about: "Acting Integrity Engineer for the sandbox test (normally PXA)." }
 
 domains:
   auth:
@@ -47,7 +47,7 @@ domains:
       - "middleware.ts"
       - "proxy.ts"
     tier: high
-    owners: ["@triforce-sandbox-josh/security"]
+    owners: [role:IE]
 
   dependencies:
     description: >-
@@ -67,7 +67,7 @@ domains:
       - "package.json"
       - "package-lock.json"
       - ".npmrc"
-    owners: ["@triforce-sandbox-josh/platform"]
+    owners: [role:IE]
 
   ci-test-integrity:
     description: >-
@@ -93,7 +93,7 @@ domains:
       - "tsconfig.json"
       - "vitest.config.*"
       - "playwright.config.*"
-    owners: ["@triforce-sandbox-josh/platform"]
+    owners: [role:IE]
 
   data-privacy-egress:
     description: >-
@@ -125,7 +125,7 @@ domains:
       - "components/Analytics.tsx"
       - "app/api/dig/**"
     tier: high
-    owners: ["@triforce-sandbox-josh/security"]
+    owners: [role:IE]
 
   shared-ui:
     description: >-
@@ -146,7 +146,7 @@ domains:
       - "components/**"
       - "app/layout.tsx"
       - "app/globals.css"
-    owners: ["@triforce-sandbox-josh/frontend"]
+    owners: [role:SE]
 
   payments:
     description: >-
@@ -164,7 +164,7 @@ domains:
         - "The 'star this repo' card linking to GitHub"
     paths: []
     tier: high
-    owners: ["@triforce-sandbox-josh/security"]
+    owners: [role:IE]
 
 no_expert_needed:
   - "README.md"
@@ -176,9 +176,9 @@ always_human:
     - ".github/workflows/**"
     - ".env*"
     - ".triforce/**"
-  owners: ["@triforce-sandbox-josh/tech-leads"]
+  owners: [role:IE]
 
-fallback_owners: ["@triforce-sandbox-josh/tech-leads"]
+fallback_owners: [role:IE]
 
 agents:
   branch_prefixes: ["claude/", "codex/", "copilot/"]
