@@ -39,9 +39,30 @@ jobs:
           app-id: ${{ secrets.TRIFORCE_APP_ID }}
           private-key: ${{ secrets.TRIFORCE_APP_PRIVATE_KEY }}
 
+      # Sandbox only: this fork is public and GitHub won't let a public repo use an action
+      # from a private repo, so we check out our own (trusted) action code with a read-only
+      # App token. This never checks out PR code. Private consumers use `uses: owner/triforce-review@v0`.
+      - name: Mint read-only token for the action repo
+        id: action-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        with:
+          app-id: ${{ secrets.TRIFORCE_APP_ID }}
+          private-key: ${{ secrets.TRIFORCE_APP_PRIVATE_KEY }}
+          owner: triforce-sandbox-josh
+          repositories: triforce-review
+          permission-contents: read
+
+      - name: Check out the Triforce action
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          repository: triforce-sandbox-josh/triforce-review
+          ref: v0
+          token: ${{ steps.action-token.outputs.token }}
+          path: .triforce-action
+          persist-credentials: false
+
       - name: Triforce Review
-        # Our own action, by tag for readability. In production, pin a full commit SHA.
-        uses: triforce-sandbox-josh/triforce-review@v0
+        uses: ./.triforce-action
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           app-slug: ${{ steps.app-token.outputs.app-slug }}
