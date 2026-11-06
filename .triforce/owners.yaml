@@ -20,6 +20,7 @@ roles:
 
 people:
   joshuayoes: { roles: [IE, SE], about: "Sandbox owner; security, CI and dependencies." }
+  trevor-coleman: { roles: [PXA], about: "Product Experience Architect; sandbox reviewer on the security team." }
 
 domains:
   auth:
